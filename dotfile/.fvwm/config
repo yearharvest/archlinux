@@ -1,0 +1,378 @@
+SetEnv CursorTheme Pulse-Glass
+SetEnv DecorTheme Stark-Ceru
+SetEnv IconTheme Moka
+
+#------------------------------
+# Options
+#------------------------------
+#-----Miscellaneous Commands
+BugOpts FlickeringMoveWorkaround Off
+BugOpts RaiseOverUnmanaged on
+ClickTime 150
+ColormapFocus FollowsMouse
+DefaultColorset 0
+DefaultFont "xft:WenQuanYi Micro Hei:size=12"
+DefaultLayers 2 4 6
+ImagePath $[FVWM_USERDIR]/decor/$[DecorTheme]:+:$[FVWM_USERDIR]/icon/$[IconTheme]:+:$[FVWM_USERDIR]/icon
+#-----Window Movement and Placement
+HideGeometryWindow Always
+MoveThreshold 3
+OpaqueMoveSize -1
+#-----Mouse, Key & Stroke Bindings
+IgnoreModifiers L25
+EdgeCommand Left nop
+EdgeLeaveCommand Left nop
+#-----other
+DeskTopSize 1x1
+EdgeResistance -1
+EdgeScroll 0 0
+EdgeThickness 1
+EwmhBaseStruts 0 0 25 0
+
+#------------------------------
+# Function
+#------------------------------
+# DestroyFunc FuncName
+# AddToFunc   FuncName
+# + I (Action to happen immediately)
+# + C (Action to happen on a mouse 'click)
+# + D (Action to happen on a mouse 'double click')
+# + H (Action to happen on a mouse 'hold')
+# + M (Action to happen on a mouse 'motion')
+
+DestroyFunc StartFunction
+AddToFunc StartFunction
++ I Test (Init) Exec habak -ms $[FVWM_USERDIR]/wallpaper/.current
+
+DestroyFunc InitFunction
+AddToFunc InitFunction
++ I Exec tint2 -c ~/.tint2rc
++ I Exec conky -c ~/.conky/harmattan/.conkyrc
++ I Exec fcitx
++ I Exec volumeicon
+
+DestroyFunc RestartFunction
+AddToFunc RestartFunction
+
+DestroyFunc ExitFunction
+AddToFunc ExitFunction
+
+DestroyFunc MaximizeFunc
+AddToFunc MaximizeFunc
++ I Maximize
++ I Current (Maximized) WindowStyle FixedPosition, FixedSize
++ I Current (!Maximized) WindowStyle VariablePosition, VariableSize
++ I UpdateStyles
+
+DestroyFunc ResizeFunc
+AddToFunc ResizeFunc
++ I Raise
++ I Resize
+
+DestroyFunc MoveFunc
+AddToFunc MoveFunc
++ I Raise
++ I Move
+
+DestroyFunc TitleLeftClick
+AddToFunc TitleLeftClick
++ I Raise
++ D MaximizeFunc
++ M Move
+
+DestroyFunc TitleRightClick
+AddToFunc TitleRightClick
++ I Raise
++ C RaiseLower
+
+DestroyFunc WindowListFunc
+AddToFunc WindowListFunc
++ I Iconify off
++ I FlipFocus
++ I Raise
+
+DestroyFunc WallpaperBrowserFunc
+AddToFunc WallpaperBrowserFunc
++ I DestroyMenu recreate WallpaperBrowser
++ I AddToMenu WallpaperBrowser
++ I PipeRead '[ -d $0/.thumb ] || mkdir $0/.thumb; \
+              for i in $0/*; do \
+                  [ -f $0/.thumb/${i##*/} ] || convert -quality 0 -scale 48 $i "png:$0/.thumb/${i##*/}"; \
+                  echo "+ ${i##*/}%$0/.thumb/${i##*/}% Exec habak -ms $i && ln -sf $i $0/.current"; \
+              done;'
+
+#------------------------------
+# Module
+#------------------------------
+#-----FvwmIdent
+DestroyModuleConfig FvwmIdent: *
+*FvwmIdent: Colorset 0
+*FvwmIdent: Font "xft:WenQuanYi Micro Hei:size=10"
+*FvwmIdent: MinimalLayer none
+
+#-----FvwmForm-Exit
+DestroyModuleConfig FvwmForm-Exit: *
+*FvwmForm-Exit: Colorset 0
+*FvwmForm-Exit: ItemColorset 0
+*FvwmForm-Exit: PadVText 6
+*FvwmForm-Exit: Font "xft:WenQuanYi Micro Hei:size=12"
+*FvwmForm-Exit: ButtonFont "xft:WenQuanYi Micro Hei:size=12"
+*FvwmForm-Exit: Line center
+*FvwmForm-Exit: Line center
+*FvwmForm-Exit: Line center
+*FvwmForm-Exit: Line center
+*FvwmForm-Exit: Line center
+*FvwmForm-Exit: Text "确认退出么？"
+*FvwmForm-Exit: Line center
+*FvwmForm-Exit: Line center
+*FvwmForm-Exit: Line center
+*FvwmForm-Exit: Line center
+*FvwmForm-Exit: Line center
+*FvwmForm-Exit: Button quit "注销"
+*FvwmForm-Exit: Command Quit
+*FvwmForm-Exit: Button quit "重启"
+*FvwmForm-Exit: Command Exec sudo reboot
+*FvwmForm-Exit: Button quit "关机"
+*FvwmForm-Exit: Command Exec sudo poweroff
+*FvwmForm-Exit: Line center
+*FvwmForm-Exit: Button quit "列出进程"
+*FvwmForm-Exit: Command Exec xterm  -fg green -bg black -e top
+*FvwmForm-Exit: Button quit "重载桌面"
+*FvwmForm-Exit: Command Restart
+*FvwmForm-Exit: Button quit "取消"
+*FvwmForm-Exit: Command Nop
+*FvwmForm-Exit: Line center
+
+#------------------------------
+# Cursor
+#------------------------------
+BusyCursor * False
+CursorStyle POSITION     $[FVWM_USERDIR]/cursor/$[CursorTheme]/top_left_corner
+CursorStyle TITLE        $[FVWM_USERDIR]/cursor/$[CursorTheme]/top_left_arrow
+CursorStyle DEFAULT      $[FVWM_USERDIR]/cursor/$[CursorTheme]/top_left_arrow
+CursorStyle SYS          $[FVWM_USERDIR]/cursor/$[CursorTheme]/hand2
+CursorStyle MOVE         $[FVWM_USERDIR]/cursor/$[CursorTheme]/fleur
+CursorStyle RESIZE       $[FVWM_USERDIR]/cursor/$[CursorTheme]/sizing
+CursorStyle WAIT         $[FVWM_USERDIR]/cursor/$[CursorTheme]/watch
+CursorStyle MENU         $[FVWM_USERDIR]/cursor/$[CursorTheme]/top_left_arrow
+CursorStyle SELECT       $[FVWM_USERDIR]/cursor/$[CursorTheme]/crosshair
+CursorStyle DESTROY      $[FVWM_USERDIR]/cursor/$[CursorTheme]/pirate
+CursorStyle TOP          $[FVWM_USERDIR]/cursor/$[CursorTheme]/top_side
+CursorStyle RIGHT        $[FVWM_USERDIR]/cursor/$[CursorTheme]/right_side
+CursorStyle BOTTOM       $[FVWM_USERDIR]/cursor/$[CursorTheme]/bottom_side
+CursorStyle LEFT         $[FVWM_USERDIR]/cursor/$[CursorTheme]/left_side
+CursorStyle TOP_LEFT     $[FVWM_USERDIR]/cursor/$[CursorTheme]/top_left_corner
+CursorStyle TOP_RIGHT    $[FVWM_USERDIR]/cursor/$[CursorTheme]/top_right_corner
+CursorStyle BOTTOM_LEFT  $[FVWM_USERDIR]/cursor/$[CursorTheme]/bottom_left_corner
+CursorStyle BOTTOM_RIGHT $[FVWM_USERDIR]/cursor/$[CursorTheme]/bottom_right_corner
+CursorStyle TOP_EDGE     $[FVWM_USERDIR]/cursor/$[CursorTheme]/top_side
+CursorStyle RIGHT_EDGE   $[FVWM_USERDIR]/cursor/$[CursorTheme]/right_side
+CursorStyle BOTTOM_EDGE  $[FVWM_USERDIR]/cursor/$[CursorTheme]/bottom_side
+CursorStyle LEFT_EDGE    $[FVWM_USERDIR]/cursor/$[CursorTheme]/left_side
+CursorStyle ROOT         $[FVWM_USERDIR]/cursor/$[CursorTheme]/left_ptr
+CursorStyle STROKE       $[FVWM_USERDIR]/cursor/$[CursorTheme]/plus
+
+#------------------------------
+# Colorset
+#------------------------------
+#------Menu
+Colorset 0 fg #555555, bg #EEEEEE
+Colorset 1 fg #FFFFFF, bg #8ED2E8
+#------Titlebar
+Colorset 2 fg #888888
+Colorset 3 fg #555555
+#------Border
+Colorset 4 bg #EEEEEE
+Colorset 5 bg #8ED2E8
+
+#------------------------------
+#   WindowDecoration
+#------------------------------
+DestroyDecor recreate WindowDecoration
+AddToDecor WindowDecoration
++ TitleStyle Centered Height 24
++ TitleStyle AllActive   (TiledPixmap titlebar-focused.png) \
+             AllInActive (TiledPixmap titlebar-unfocused.png)
++ TitleStyle  -- flat
++ BorderStyle -- flat HiddenHandles NoInset
++ ButtonStyle 1 MiniIcon
++ ButtonStyle 2 ActiveUp          (Pixmap close_focused.png) \
+                ActiveDown        (Pixmap close_focused_pressed.png) \
+                Inactive          (Pixmap close_unfocused.png)
++ ButtonStyle 4 ActiveUp          (Pixmap maximize_focused.png) \
+                ActiveDown        (Pixmap maximize_focused_pressed.png) \
+                Inactive          (Pixmap maximize_unfocused.png) \
+                ToggledActiveUp   (Pixmap unmaximize_focused.png) \
+                ToggledActiveDown (Pixmap unmaximize_focused_pressed.png) \
+                ToggledInactive   (Pixmap unmaximize_unfocused.png)
++ ButtonStyle 6 ActiveUp          (Pixmap minimize_focused.png) \
+                ActiveDown        (Pixmap minimize_focused_pressed.png) \
+                Inactive          (Pixmap minimize_unfocused.png)
++ ButtonStyle 1 - MwmDecorMenu
++ ButtonStyle 2 - Clear
++ ButtonStyle 4 - MwmDecorMax
++ ButtonStyle 6 - MwmDecorMin
++ ButtonStyle All -- flat UseTitleStyle
+
+#------------------------------
+# Style
+#------------------------------
+#-----Style
+Style * ClickToFocus, ClickToFocusRaises
+Style * !Title, TitleAtTop, TopTitleNotRotated, UseTitleDecorRotation, !StippledTitle, !StickyStippledTitle, Colorset 2, HilightColorset 3, BorderColorset 4, HilightBorderColorset 5, !IconTitle, Font "xft:WenQuanYi Micro Hei:size=12", ExactWindowName, TitleFormat %c
+Style * MWMButtons
+Style * Borders, Handles, BorderWidth 0, HandleWidth 2, FvwmBorder, FirmBorder
+Style * !icon, WindowShadeShrinks, WindowShadeSteps 20, ResizeOpaque, Slippery, StartNormal, SlipperyIcon, VariablePosition, VariableSize, Closable, Iconifiable, Maximizable, SnapAttraction 5 SameType Screen, SnapGrid 3 3
+Style * PositionPlacement center
+Style * StaysPut, StartsRaised
+Style * DecorateTransient, DontRaiseTransient, DontLowerTransient, DontStackTransientParent
+Style * EWMHNoMiniIconOverride
+Style * UseDecor WindowDecoration, WindowListHit, CirculateHit
+
+Style Fvwm* !Title, !Borders, !Handles, !Iconifiable, !Maximizable, !FixedPosition, FixedSize, WindowListSkip, CirculateSkip, Sticky
+Style tint2 !Title, !Borders, Layer 7, FixedPosition, FixedSize, WindowListSkip, CirculateSkip, Sticky
+Style Conky !Title, !Borders, Layer 1, FixedPosition, FixedSize, WindowListSkip, CirculateSkip, Sticky
+
+#-----MenuStyle
+MenuStyle * Win
+MenuStyle * BorderWidth 0
+MenuStyle * MenuColorset 0, ActiveColorset 1
+MenuStyle * Hilight3DThickness 0, !Animation
+MenuStyle * Font "xft:WenQuanYi Micro Hei:size=12"
+MenuStyle * PopupImmediately, PopdownImmediately, TitleUnderlines0, SeparatorsShort, TrianglesSolid, SubmenusRight
+MenuStyle * ItemFormat "%s%|%5.i%5.5l%5.5r%.5>%|%i"
+MenuStyle * MouseWheel ScrollsPointer, TrianglesUseFore
+
+#------------------------------
+# Mouse & Keyboard Bindings
+#------------------------------
+#-----Mouse
+Mouse 1        1    N    Menu MenuFvwmWindowOps
+Mouse 1        2    N    Close
+Mouse 1        4    N    MaximizeFunc
+Mouse 1        6    N    Iconify
+Mouse 1        T    N    TitleLeftClick
+Mouse 3        T    N    TitleRightClick
+Mouse 4        T    N    WindowShade True
+Mouse 5        T    N    WindowShade False
+
+Mouse 3        R    N    Menu MenuFvwmRoot
+Mouse 1        FST  N    ResizeFunc
+Mouse 1        WS   4    MoveFunc
+Mouse 3        WS   4    Menu MenuFvwmWindowOps
+Mouse 4        W    4    Resize w+5 w+5
+Mouse 5        W    4    Resize w-5 w-5
+
+Mouse 1        R    N    StrokeFunc
+Stroke N456 0  R    N    Exec xterm
+
+#-----Keyboard
+Key 1          W    4    Iconify
+Key 2          W    4    MaximizeFunc
+Key 3          W    4    Close
+Key Print      A    N    Exec scrot -q 100 scrot-%F_%H%M%S.jpg
+Key Menu       A    N    Menu MenuFvwmRoot
+Key D          A    4    All (CurrentPage, AcceptsFocus, !Iconic) Iconify
+Key Up         A    4    Current (CurrentPage, AcceptsFocus, !Iconic) AnimatedMove keep w-5
+Key Down       A    4    Current (CurrentPage, AcceptsFocus, !Iconic) AnimatedMove keep w+5
+Key Right      A    4    Current (CurrentPage, AcceptsFocus, !Iconic) AnimatedMove w+5 keep
+Key Left       A    4    Current (CurrentPage, AcceptsFocus, !Iconic) AnimatedMove w-5 keep
+Key Escape     A    4    Module FvwmForm FvwmForm-Exit
+Key Tab        A    M    WindowList SelectOnRelease Meta_L, ReverseOrder, NoGeometry, NoCurrentDeskTitle, CurrentDesk
+
+#------------------------------
+# Menu
+#------------------------------
+DestroyMenu MenuFvwmWindowOps
+AddToMenu MenuFvwmWindowOps
++ "Move"           Move
++ "Resize"         Resize
++ "Center"         AnimatedMove 50-50w 50-50w
++ "Stick"          Stick
++ "WindowShade"    WindowShade
++ "Identify"       Module FvwmIdent
++ "" Nop
++ "Lower"          Lower
++ "Raise"          Raise
++ "StaysOnTop"     Pick (CirculateHit) Layer 0 6
++ "StaysPut"       Pick (CirculateHit) Layer 0 4
++ "StaysOnBottom"  Pick (CirculateHit) Layer 0 2
++ "" Nop
++ "Iconify"        Iconify
++ "Maximize"       MaximizeFunc
++ "Close"          Close
++ "Delete"         Delete
++ "Destroy"        Destroy
++ "RefreshWindow"  RefreshWindow
+
+DestroyMenu MenuFvwmRoot
+AddToMenu "MenuFvwmRoot@menu_side.png@"
++ *menu_up.png* Title
++ "Terminal"%terminal.png%                       Exec xterm
++ "File Manager"%file-manager.png%               Exec pcmanfm
++ "Web Browser"%web-browser.png%                 Exec firefox
++ "" Nop
++ "Preferences"%preferences-desktop.png%         Popup Preferences
++ "" Nop
++ "Accessories"%applications-accessories.png%    Popup Accessories
++ "Development"%applications-development.png%    Popup Development
++ "Games"%applications-games.png%                Popup Games
++ "Graphics"%applications-graphics.png%          Popup Graphics
++ "Internet"%applications-internet.png%          Popup Internet
++ "Multimedia"%applications-multimedia.png%      Popup Multimedia
++ "Office"%applications-office.png%              Popup Office
++ "System"%applications-system.png%              Popup System
++ "Utilities"%applications-utilities.png%        Popup Utilities
++ *menu_down.png* Title
+
+DestroyMenu Preferences
+AddToMenu Preferences
++ "lxappearance"%gtk-preferences.png%            Exec lxappearance
++ "qtconfig-qt4"%qtconfig-qt4.png%               Exec qtconfig-qt4
++ "wallpaper"%preferences-desktop-wallpaper.png% Popup WallpaperBrowser
++ "FvwmConsole"%terminal.png%                    Module FvwmConsole
+
+DestroyMenu Accessories
+AddToMenu Accessories
+
+DestroyMenu Development
+AddToMenu Development
++ "emacs"%emacs.png%                             Exec emacs
+
+DestroyMenu Games
+AddToMenu Games
+
+DestroyMenu Graphics
+AddToMenu Graphics
++ "xnviewmp"%xnviewmp.png%                       Exec xnviewmp
++ "Screenshot"%gnome-screenshot.png%             Popup Screenshot
+
+DestroyMenu Multimedia
+AddToMenu Multimedia
++ "mplayer"%mplayer.png%                         Exec mplayer
+
+DestroyMenu Internet
+AddToMenu Internet
++ "firefox"%firefox.png%                         Exec firefox
++ "wiznote"%wiznote.png%                         Exec WizNote
+
+DestroyMenu Office
+AddToMenu Office
+
+DestroyMenu Utilities
+AddToMenu Utilities
+
+DestroyMenu System
+AddToMenu System
++ "xterm"%xterm.png%                             Exec xterm
++ "pcmanfm"%file-manager.png%                    Exec pcmanfm
+
+DestroyMenu WallpaperBrowser
+AddToMenu WallpaperBrowser
++ DynamicPopupAction Function WallpaperBrowserFunc "$[FVWM_USERDIR]/wallpaper"
+
+DestroyMenu Screenshot
+AddToMenu Screenshot
++ "Screenshot"%gnome-screenshot.png%             Exec scrot -q 100 scrot-%F_%H%M%S.jpg
++ "Screenshot (5s delay)"%gnome-screenshot.png%  Exec scrot -q 100 -d 5 scrot-%F_%H%M%S.jpg
++ "Screenshot frame"%gnome-screenshot.png%       Exec scrot -q 100 -s scrot-%F_%H%M%S.jpg

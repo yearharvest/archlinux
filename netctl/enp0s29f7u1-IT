@@ -1,0 +1,8 @@
+Description='Automatically generated profile by wifi-menu'
+Interface=enp0s29f7u1
+Connection=wireless
+Security=wpa
+ESSID=IT
+IP=dhcp
+#key=shzhrj_903_2012-wyw-langya
+Key=\"26340ec20395e438f8417398f5a7f1c5dd3495ba3cc550e958c49bec9be3a8dd

@@ -1,0 +1,106 @@
+! Base16 Solarized
+#define base00 #002b36
+#define base01 #073642
+#define base02 #586e75
+#define base03 #657b83
+#define base04 #839496
+#define base05 #93a1a1
+#define base06 #eee8d5
+#define base07 #fdf6e3
+#define base08 #dc322f
+#define base09 #cb4b16
+#define base0A #b58900
+#define base0B #859900
+#define base0C #2aa198
+#define base0D #268bd2
+#define base0E #6c71c4
+#define base0F #d33682
+
+XTerm*vt100.foreground:  base05
+XTerm*vt100.background:  base00
+XTerm*vt100.cursorColor: base05
+XTerm*vt100.color0:  base00
+XTerm*vt100.color1:  base08
+XTerm*vt100.color2:  base0B
+XTerm*vt100.color3:  base0A
+XTerm*vt100.color4:  base0D
+XTerm*vt100.color5:  base0E
+XTerm*vt100.color6:  base0C
+XTerm*vt100.color7:  base05
+XTerm*vt100.color8:  base03
+XTerm*vt100.color9:  base08
+XTerm*vt100.color10: base0B
+XTerm*vt100.color11: base0A
+XTerm*vt100.color12: base0D
+XTerm*vt100.color13: base0E
+XTerm*vt100.color14: base0C
+XTerm*vt100.color15: base07
+XTerm*vt100.color16: base09
+XTerm*vt100.color17: base0F
+XTerm*vt100.color18: base01
+XTerm*vt100.color19: base02
+XTerm*vt100.color20: base04
+XTerm*vt100.color21: base06
+
+! look and feel
+XTerm.fullscreen: false
+XTerm.hold: false
+XTerm.maximized: false
+XTerm.termName: xterm-256color
+XTerm.toolBar: false
+XTerm*vt100.alwaysHighlight: false
+XTerm*vt100.autoWrap: true
+XTerm*vt100.colorAttrMode: false
+XTerm*vt100.colorMode: true
+XTerm*vt100.cursorBlink: true
+XTerm*vt100.cursorOffTime: 300
+XTerm*vt100.cursorOnTime: 600
+XTerm*vt100.cursorUnderLine: false
+XTerm*vt100.cutNewline: false
+XTerm*vt100.cutToBeginningOfLine: true
+XTerm*vt100.geometry: 80x25
+XTerm*vt100.highlightSelection: true
+XTerm*vt100.highlightReverse: true
+XTerm*vt100.internalBorder: 2
+XTerm*vt100.loginShell: true
+XTerm*vt100.multiClickTime: 250
+XTerm*vt100.resizeGravity: SouthWest
+XTerm*vt100.saveLines: 8192
+XTerm*vt100.rightScrollBar: true
+XTerm*vt100.scrollBar: false
+XTerm*vt100.scrollBarBorder: 0
+XTerm*vt100.scrollKey: true
+XTerm*vt100.scrollLines: 1
+XTerm*vt100.scrollTtyOutput: false
+XTerm*vt100.selectToClipboard: true
+XTerm*vt100.showWrapMarks: false
+XTerm*vt100.trimSelection: true
+
+! font and locale
+XTerm*vt100.locale: true
+XTerm*vt100.utf8: true
+XTerm*vt100.utf8Title: true
+XTerm*vt100.faceName: DejaVu Sans Mono for Powerline:antialias=True:pixelsize=15
+XTerm*vt100.faceNameDoublesize: WenQuanYi Micro Hei Mono:antialias=True:pixelsize=15
+XTerm*vt100.cjkWidth: false
+
+! fix alt key input 
+XTerm*vt100.eightBitInput: false
+XTerm*vt100.altSendsEscape: true
+
+! key bindings
+XTerm*vt100.translations : #override \
+    ~Ctrl ~Meta <Btn1Down>:   select-start() \n\
+    ~Ctrl ~Meta <Btn1Motion>: select-extend() \n\
+    ~Ctrl ~Meta <Btn2Down>:   start-extend() \n\
+    ~Ctrl ~Meta <Btn3Up>:     insert-selection(CLIPBOARD,PRIMARY,CUT_BUFFER1) \n\\
+    ~Ctrl ~Meta <Btn4Down>:   scroll-back(5,line,m) \n\
+    ~Ctrl ~Meta <Btn5Down>:   scroll-forw(5,line,m) \n\
+    ~Ctrl ~Meta <BtnDown>:    ignore() \n\
+    ~Ctrl ~Meta <BtnMotion>:  ignore() \n\
+    ~Ctrl ~Meta <BtnUp>:      select-end(CLIPBOARD,PRIMARY,CUT_BUFFER1) \n\
+    ~Ctrl ~Meta <KeyPress>Prior: scroll-back(1,page,m) \n\
+    ~Ctrl ~Meta <KeyPress>Next:  scroll-forw(1,page,m) \n\
+    !Ctrl <Btn1Down>: popup-menu(mainMenu) \n\
+    !Ctrl <Btn2Down>: popup-menu(vtMenu) \n\
+    !Ctrl <Btn3Down>: popup-menu(fontMenu) \n

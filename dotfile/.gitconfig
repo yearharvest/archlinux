@@ -1,0 +1,6 @@
+[user]
+	name = yearharvest
+	email = yearharvest@163.com
+[core]
+	autocrlf = input
+	safecrlf = true

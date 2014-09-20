@@ -1,0 +1,68 @@
+[default]
+
+#----------------------------
+# general settings
+#----------------------------
+really-quiet=yes
+doubleclick-time=500
+colorkey=0x010203
+input=conf=input.conf
+idle=yes
+zoom=yes
+
+#----------------------------
+# osd settings
+#----------------------------
+ass=yes
+ass-line-spacing=1
+ass-use-margins=yes
+ass-bottom-margin=0
+ass-top-margin=0
+font='WenQuanYi Micro Hei'
+fontconfig=yes
+noautosub=no
+osdlevel=1
+progbar-align=50
+slang=zh,cn,tw
+nosub=no
+spuaa=4
+spualign=1
+spugauss=1.0
+sub-bg-alpha=0
+sub-bg-color=0
+sub-fuzziness=1
+subalign=1
+subcp=enca:zh:GBK
+subdelay=0
+subfont='WenQuanYi Micro Hei'
+subfont-autoscale=3
+subfont-blur=1.1
+subfont-encoding=unicode
+subfont-osd-scale=2
+subfont-outline=1.2
+subfont-text-scale=3
+subpos=95
+subwidth=90
+utf8=yes
+
+#----------------------------
+# audio settings
+#----------------------------
+ao=alsa
+softvol=yes
+softvol-max=300
+volstep=5
+volume=-1
+
+#----------------------------
+# video settings
+#----------------------------
+vo=xv
+double=yes
+#fs=yes
+geometry=50%:50%
+monitoraspect=1280:800
+#nokeepaspect=yes
+#ontop=yes
+stop-xscreensaver=yes
+use-filename-title=yes
