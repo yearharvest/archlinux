@@ -45,7 +45,7 @@ function setup(){
 	# 设置 Root 密码
 	(echo "123456";sleep 1;echo "123456") | passwd
 	# 安装并配置 bootloader
-	grub-install --target=i386-pc --recheck /dev/sda
+	grub-install --boot-directory=/boot --target=i386-pc --recheck /dev/sda
 	#grub-mkconfig -o /boot/grub/grub.cfg
 	# 添加用户
 	useradd -m -G wheel -s /usr/bin/zsh year
